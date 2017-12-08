@@ -8,4 +8,6 @@ public interface ISubcategoryService {
 
     List<Subcategory> getAll();
 
+    List<Subcategory> getAllById(Integer id);
+
 }

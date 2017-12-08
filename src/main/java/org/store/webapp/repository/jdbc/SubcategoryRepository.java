@@ -39,8 +39,18 @@ public class SubcategoryRepository implements ISubcategoryRepository {
 
     @Override
     public List getAll() {
-        List<Subcategory> subcategories = new ArrayList<>();
         List<Map<String, Object>> rows = template.queryForList("SELECT * FROM subcategory");
+        return getInfo(rows);
+    }
+
+    @Override
+    public List getAllById(Integer id) {
+        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM subcategory WHERE subcategory.id_category=?", id);
+        return getInfo(rows);
+    }
+
+    private List getInfo(List<Map<String, Object>> rows) {
+        List<Subcategory> subcategories = new ArrayList<>();
         for (Map row : rows) {
             Subcategory subcategory = new Subcategory();
             subcategory.setId((Integer) row.get("id_subcategory"));
@@ -50,4 +60,5 @@ public class SubcategoryRepository implements ISubcategoryRepository {
         }
         return subcategories;
     }
+
 }

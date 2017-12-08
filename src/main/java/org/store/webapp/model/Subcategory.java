@@ -12,6 +12,10 @@ public class Subcategory extends BaseEntity {
     public Subcategory() {
     }
 
+    public Subcategory(Integer id, String name) {
+        super(id, name);
+    }
+
     public Subcategory(Integer id, String name, Integer idCategory) {
         super(id, name);
         this.idCategory = idCategory;
@@ -47,11 +51,29 @@ public class Subcategory extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Subcategory that = (Subcategory) o;
+
+        return idCategory != null ? idCategory.equals(that.idCategory) : that.idCategory == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (idCategory != null ? idCategory.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Subcategory{" +
                 super.toString() +
                 "idCategory=" + idCategory +
-                ", category=" + category +
                 '}';
     }
+
 }

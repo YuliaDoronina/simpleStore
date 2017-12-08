@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.store.webapp.model.Category;
 import org.store.webapp.model.Subcategory;
 import org.store.webapp.repository.ISubcategoryRepository;
 
@@ -22,6 +21,13 @@ public class SubcategoryService implements ISubcategoryService {
     public List<Subcategory> getAll() {
         List list = repository.getAll();
         LOGGER.info("Get all: {}", list);
+        return list;
+    }
+
+    @Override
+    public List<Subcategory> getAllById(Integer id) {
+        List list = repository.getAllById(id);
+        LOGGER.info("Get all by id: {}", list);
         return list;
     }
 }
