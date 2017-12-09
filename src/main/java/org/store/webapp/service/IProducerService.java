@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IProducerService {
 
-    List<Producer> getAll();
+    List<Producer> getAllBySubcategory(Integer id);
 
 }

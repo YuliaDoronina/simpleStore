@@ -18,9 +18,9 @@ public class ProducerService implements IProducerService {
     private IProducerRepository repository;
 
     @Override
-    public List<Producer> getAll() {
-        List list = repository.getAll();
-        LOGGER.info("Get all: {}", list);
+    public List<Producer> getAllBySubcategory(Integer id) {
+        List list = repository.getAllBySubcategory(id);
+        LOGGER.info("Get all by subcategory: {}", list);
         return list;
     }
 }

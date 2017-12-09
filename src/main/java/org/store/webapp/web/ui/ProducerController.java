@@ -15,7 +15,7 @@ public class ProducerController {
     private IProducerService service;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAll() {
-        return new ModelAndView("producerList", "producerList", service.getAll());
+    public ModelAndView getAll(Integer id) {
+        return new ModelAndView("producerList", "producerList", service.getAllBySubcategory(id));
     }
 }

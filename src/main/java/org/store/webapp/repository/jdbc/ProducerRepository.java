@@ -38,9 +38,19 @@ public class ProducerRepository implements IProducerRepository {
     }
 
     @Override
-    public List getAll() {
+    public List getAllBySubcategory(Integer id) {
         List<Producer> producers = new ArrayList<>();
-        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM producer");
+        List<Map<String, Object>> rows = template.queryForList("SELECT " +
+                "producer.id_producer, " +
+                "producer.name_producer " +
+                "FROM producer " +
+                "LEFT JOIN summary ON producer.id_producer = summary.id_producer\n" +
+                "JOIN product ON summary.id_product = product.id_product\n" +
+                "JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory " +
+                "JOIN category ON subcategory.id_category = category.id_category\n" +
+                "WHERE category.id_category=? " +
+                "GROUP BY producer.id_producer", id);
+
         for (Map row : rows) {
             Producer product = new Producer();
             product.setId((Integer) row.get("id_producer"));

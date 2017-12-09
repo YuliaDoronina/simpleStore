@@ -13,20 +13,33 @@
 
 <select id="category" title="Category">
     <jsp:useBean id="category" class="org.store.webapp.model.Category"/>
-    <optgroup label="Choose category">
-        <c:forEach items="${categories}" var="category1">
-            <option value="${category1.id}">
-                    ${category1.name}
-            </option>
-        </c:forEach>
-    </optgroup>
+    <option selected disabled hidden>Choose category</option>
+    <c:forEach items="${categories}" var="category1">
+        <option value="${category1.id}">
+                ${category1.name}
+        </option>
+    </c:forEach>
+</select>
+<input type="button" id="btnSort" Value="Sort By Category"/>
+<br/><br/><br/><br/><br/>
+
+<select id="subcategory" title="Subcategory" <%--style="display:none"--%>>
+    <option selected disabled hidden>Choose here</option>
+    <option value="test" onchange="getSubcategory(this)"></option>
 </select>
 
-<select id="subcategory" title="Subcategory">
-    <optgroup label="Choose subcategory">
-        <option  value="test" onchange="getSubcategory(this)" style="display:none"></option>
-    </optgroup>
+<select id="producer" title="Producer" <%--style="display:none"--%>>
+    <option selected disabled hidden>Choose here</option>
+    <option value="test" onchange="getProducer(this)"></option>
 </select>
+<br/><br/><br/><br/><br/>
+
+<select id="product" title="Product">
+    <option selected disabled hidden>Choose here</option>
+    <option value="test" onchange="getSubcategory(this)" <%--style="display:none"--%>></option>
+</select>
+<input type="button" id="btnSortByPriceProduct" Value="Sort By Price"/>
+<input type="button" id="btnSortByFlagProduct" Value="Sort By Flag"/>
 
 </body>
 </html>

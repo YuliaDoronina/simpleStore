@@ -8,4 +8,7 @@ public interface IProductService {
 
     List<Product> getAll();
 
+    List<Product> getAllById(Integer id);
+
+    List<Product> getAllByProducer(Integer id);
 }

@@ -39,8 +39,34 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List getAll() {
-        List<Product> products = new ArrayList<>();
         List<Map<String, Object>> rows = template.queryForList("SELECT * FROM product");
+        return getInfo(rows);
+    }
+
+    @Override
+    public List getAllById(Integer id) {
+        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM product WHERE product.id_subcategory=?", id);
+        return getInfo(rows);
+    }
+
+    @Override
+    public List getAllByProducer(Integer id) {
+        List<Map<String, Object>> rows = template.queryForList("SELECT\n " +
+                "product.id_product,\n " +
+                "product.name_product,\n" +
+                "product.price_product,\n" +
+                "product.description_product,\n" +
+                "product.flag_product\n" +
+                "FROM product\n" +
+                "LEFT JOIN summary ON product.id_product = summary.id_producer\n" +
+                "JOIN producer ON summary.id_producer = producer.id_producer\n" +
+                "WHERE producer.id_producer =?", id);
+
+        return getInfo(rows);
+    }
+
+    private List getInfo(List<Map<String, Object>> rows) {
+        List<Product> products = new ArrayList<>();
         for (Map row : rows) {
             Product product = new Product();
             product.setId((Integer) row.get("id_product"));
@@ -50,8 +76,8 @@ public class ProductRepository implements IProductRepository {
             product.setFlag((Boolean) row.get("flag_product"));
             products.add(product);
         }
-
         LOGGER.info("Get all: {}", products);
+
         return products;
     }
 }

@@ -46,3 +46,24 @@ CREATE TABLE summary (
 VALUES ('tablet1', '123', 'description tablet1', TRUE, 1), ('tablet2', '898', 'description tablet2', FALSE, 1),
   ('Monitors1', '254', 'description Monitors1', TRUE, 1);*/
 
+SELECT
+  producer.id_producer,
+  producer.name_producer
+FROM producer
+  LEFT JOIN summary ON producer.id_producer = summary.id_producer
+  JOIN product ON summary.id_product = product.id_product
+  JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory
+  JOIN category ON subcategory.id_category = category.id_category
+WHERE category.id_category = 1
+GROUP BY producer.id_producer;
+
+SELECT
+  product.id_product,
+  product.name_product,
+  product.price_product,
+  product.description_product,
+  product.flag_product
+FROM product
+  LEFT JOIN summary ON product.id_product = summary.id_producer
+  JOIN producer ON summary.id_producer = producer.id_producer
+WHERE producer.id_producer = 1;
