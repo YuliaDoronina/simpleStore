@@ -3,8 +3,10 @@ package org.store.webapp.repository.jdbc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -78,8 +80,43 @@ public class ProductRepository implements IProductRepository {
             product.setFlag((Boolean) row.get("flag_product"));
             products.add(product);
         }
-        LOGGER.info("Get all: {}", products);
+        LOGGER.info("Get all products: {}", products);
 
         return products;
+    }
+
+    @Override
+    public Product getById(Integer id) {
+        LOGGER.info("Get product by id: {}", id);
+        try {
+            return template.queryForObject("SELECT * FROM product WHERE product.id_product=?", rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Product save(Product product) {
+        LOGGER.info("Save product: {}", product);
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("name", product.getName());
+        map.addValue("price", product.getPrice());
+        map.addValue("description", product.getDescription());
+        map.addValue("flag", product.getFlag());
+
+        if (product.getId() == null) {
+            Number number = insert.executeAndReturnKey(map);
+            product.setId(number.intValue());
+        } else {
+            map.addValue("id", product.getId());
+            namedParameterJdbcTemplate.update("UPDATE product SET name_product=:name, price_product=:price, description_product=:description, flag_product=:flag WHERE id_product=:id", map);
+        }
+        return product;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        LOGGER.info("Delete product by id: {}", id);
+        return template.update("DELETE FROM product WHERE product.id_product=?", id) > 0;
     }
 }

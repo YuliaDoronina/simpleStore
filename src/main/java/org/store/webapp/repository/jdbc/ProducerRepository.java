@@ -3,8 +3,10 @@ package org.store.webapp.repository.jdbc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -38,8 +40,13 @@ public class ProducerRepository implements IProducerRepository {
     }
 
     @Override
+    public List getAll() {
+        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM producer");
+        return getInfo(rows);
+    }
+
+    @Override
     public List getAllByCategory(Integer id) {
-        List<Producer> producers = new ArrayList<>();
         List<Map<String, Object>> rows = template.queryForList("SELECT " +
                 "producer.id_producer, " +
                 "producer.name_producer " +
@@ -51,12 +58,51 @@ public class ProducerRepository implements IProducerRepository {
                 "WHERE category.id_category=? " +
                 "GROUP BY producer.id_producer", id);
 
+        return getInfo(rows);
+    }
+
+    private List getInfo(List<Map<String, Object>> rows) {
+        List<Producer> producers = new ArrayList<>();
         for (Map row : rows) {
             Producer product = new Producer();
             product.setId((Integer) row.get("id_producer"));
             product.setName((String) row.get("name_producer"));
             producers.add(product);
         }
+
+        LOGGER.info("Get all products: {}", producers);
         return producers;
+    }
+
+    @Override
+    public Producer getById(Integer id) {
+        LOGGER.info("Get producer by id: {}", id);
+        try {
+            return template.queryForObject("SELECT * FROM producer WHERE producer.id_producer=?", rowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Producer save(Producer producer) {
+        LOGGER.info("Save product: {}", producer);
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("name", producer.getName());
+
+        if (producer.getId() == null) {
+            Number number = insert.executeAndReturnKey(map);
+            producer.setId(number.intValue());
+        } else {
+            map.addValue("id", producer.getId());
+            namedParameterJdbcTemplate.update("UPDATE producer SET name_producer=:name WHERE id_producer=:id", map);
+        }
+        return producer;
+    }
+
+    @Override
+    public boolean delete(Integer id) {
+        LOGGER.info("Delete producer by id: {}", id);
+        return template.update("DELETE FROM producer WHERE producer.id_producer=?", id) > 0;
     }
 }

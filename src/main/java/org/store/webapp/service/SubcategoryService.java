@@ -1,7 +1,5 @@
 package org.store.webapp.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.store.webapp.model.Subcategory;
@@ -12,22 +10,36 @@ import java.util.List;
 @Service
 public class SubcategoryService implements ISubcategoryService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Subcategory.class);
-
     @Autowired
     private ISubcategoryRepository repository;
 
     @Override
     public List<Subcategory> getAll() {
-        List list = repository.getAll();
-        LOGGER.info("Get all: {}", list);
-        return list;
+        return repository.getAll();
     }
 
     @Override
     public List<Subcategory> getAllById(Integer id) {
-        List list = repository.getAllById(id);
-        LOGGER.info("Get all by id: {}", list);
-        return list;
+        return repository.getAllById(id);
+    }
+
+    @Override
+    public Subcategory getById(Integer id) {
+        return repository.getById(id);
+    }
+
+    @Override
+    public Subcategory save(Subcategory category) {
+        return repository.save(category);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.delete(id);
+    }
+
+    @Override
+    public void update(Subcategory category) {
+        repository.save(category);
     }
 }

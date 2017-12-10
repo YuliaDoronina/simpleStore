@@ -8,7 +8,15 @@ public interface IProductService {
 
     List<Product> getAll();
 
-    List<Product> getAllById(Integer id);
+    List getAllById(Integer id);
 
     List<Product> getAllByProducer(Integer idProducer, Integer idCategory);
+
+    Product getById(Integer id);
+
+    Product save(Product product);
+
+    void delete(Integer id);
+
+    void update(Product product);
 }

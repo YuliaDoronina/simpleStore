@@ -15,7 +15,7 @@ CREATE TABLE subcategory (
   id_subcategory   INTEGER PRIMARY KEY AUTO_INCREMENT,
   name_subcategory VARCHAR(100) NOT NULL,
   id_category      INTEGER      NOT NULL,
-  FOREIGN KEY (id_category) REFERENCES category (id_category)
+  FOREIGN KEY (id_category) REFERENCES category (id_category) ON DELETE CASCADE
 );
 
 CREATE TABLE product (
@@ -25,7 +25,7 @@ CREATE TABLE product (
   description_product VARCHAR(200) NOT NULL,
   flag_product        BIT          NOT NULL,
   id_subcategory      INTEGER      NOT NULL,
-  FOREIGN KEY (id_subcategory) REFERENCES subcategory (id_subcategory)
+  FOREIGN KEY (id_subcategory) REFERENCES subcategory (id_subcategory) ON DELETE CASCADE
 );
 
 CREATE TABLE producer (

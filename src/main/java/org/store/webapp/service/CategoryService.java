@@ -1,7 +1,5 @@
 package org.store.webapp.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.store.webapp.model.Category;
@@ -12,15 +10,31 @@ import java.util.List;
 @Service
 public class CategoryService implements ICategoryService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Category.class);
-
     @Autowired
     private ICategoryRepository repository;
 
     @Override
     public List<Category> getAll() {
-        List list = repository.getAll();
-        LOGGER.info("Get all: {}", list);
-        return list;
+        return repository.getAll();
+    }
+
+    @Override
+    public Category getById(Integer id) {
+        return repository.getById(id);
+    }
+
+    @Override
+    public Category save(Category category) {
+        return repository.save(category);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        repository.delete(id);
+    }
+
+    @Override
+    public void update(Category category) {
+        repository.save(category);
     }
 }

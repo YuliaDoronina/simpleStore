@@ -10,4 +10,11 @@ public interface ISubcategoryService {
 
     List<Subcategory> getAllById(Integer id);
 
+    Subcategory getById(Integer id);
+
+    Subcategory save(Subcategory category);
+
+    void delete(Integer id);
+
+    void update(Subcategory category);
 }

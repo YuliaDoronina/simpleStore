@@ -100,7 +100,8 @@ function sortByCategory() {
 
     getSubcategory();
     getProducer();
-    $("#product").val();
+    getProductByProducer();
+   /* $("#product").val("");*/
 }
 
 /*2. SORTING PRODUCTS*/

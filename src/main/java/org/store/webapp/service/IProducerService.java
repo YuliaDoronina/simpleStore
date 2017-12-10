@@ -6,6 +6,15 @@ import java.util.List;
 
 public interface IProducerService {
 
-    List<Producer> getAllByCategory(Integer id);
+    List<Producer> getAll();
 
+    List getAllByCategory(Integer id);
+
+    Producer getById(Integer id);
+
+    Producer save(Producer producer);
+
+    void delete(Integer id);
+
+    void update(Producer producer);
 }

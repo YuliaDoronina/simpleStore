@@ -41,5 +41,5 @@ VALUES ('tv1', '123', 'description tv1', TRUE, 1), ('tv2', '243', 'description t
 
 INSERT INTO producer (name_producer) VALUES ('producer 1'), ('producer 2'), ('producer 3'), ('producer 4'), ('producer 5');
 
-INSERT INTO summary VALUES (1, 4), (4, 4), (5, 5), (12, 5), (10, 1);
+INSERT INTO summary VALUES (1, 4), (4, 4), (5, 5), (12, 5), (10, 1), (43, 1), (44, 5), (45, 1), (19, 1);
 

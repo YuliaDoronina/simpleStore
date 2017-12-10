@@ -4,10 +4,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Start</title>
     <link href="<c:url value="/static/css/select.css" />" rel="stylesheet">
     <script type="text/javascript" src="<c:url value="/static/js/jquery/3.2/jquery-3.2.1.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/static/js/selectSubcategory.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/static/js/editorSelect.js" />"></script>
+
+    <title>Start</title>
 </head>
 <body>
 <div class="vend-iframe">
