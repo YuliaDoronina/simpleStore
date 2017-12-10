@@ -8,5 +8,5 @@ public interface IProductRepository {
 
     List getAllById(Integer id);
 
-    List getAllByProducer(Integer id);
+    List getAllByProducer(Integer idProducer, Integer idCategory);
 }

@@ -5,41 +5,102 @@
 <html>
 <head>
     <title>Start</title>
+    <link href="<c:url value="/static/css/select.css" />" rel="stylesheet">
     <script type="text/javascript" src="<c:url value="/static/js/jquery/3.2/jquery-3.2.1.min.js" />"></script>
     <script type="text/javascript" src="<c:url value="/static/js/selectSubcategory.js" />"></script>
 </head>
 <body>
-<h1>Hello!</h1>
+<div class="vend-iframe">
+    <div class="vd-modal-container">
+        <div class="vd-modal-top">
+            <h2>Store</h2>
+            <div class="vd-field">
+                <div class="vd-label">Select Category</div>
+                <div class="vd-select-container">
+                    <select class="vd-select" id="category">
+                        <jsp:useBean id="category" class="org.store.webapp.model.Category"/>
+                        <c:forEach items="${categories}" var="categories">
+                            <option value="${categories.id}">
+                                    ${categories.name}
+                            </option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="vd-modal-bottom">
+                    <button class="vd-button-small vd-color-primary" id="btnSortByCategory">Sort By Category
+                    </button>
+                </div>
+            </div>
 
-<select id="category" title="Category">
-    <jsp:useBean id="category" class="org.store.webapp.model.Category"/>
-    <option selected disabled hidden>Choose category</option>
-    <c:forEach items="${categories}" var="category1">
-        <option value="${category1.id}">
-                ${category1.name}
-        </option>
-    </c:forEach>
-</select>
+            <div class="vd-field">
+                <div class="vd-label">Select Subcategory</div>
+                <div class="vd-select-container">
+                    <select class="vd-select" id="subcategory">
+                        <option value="">-----Select-----</option>
+                    </select>
+                </div>
+                <div class="vd-modal-bottom">
+                    <button class="vd-button-small vd-color-primary" id="btnSortByPriceProduct">Sort By Price
+                    </button>
+                    <button class="vd-button-small vd-color-primary" id="btnSortByFlagProduct">Sort By Flag
+                    </button>
+                </div>
+            </div>
+
+            <div class="vd-field">
+                <div class="vd-label">Select Producer</div>
+                <div class="vd-select-container">
+                    <select class="vd-select" id="producer">
+                        <option value="">-----Select-----</option>
+                    </select>
+                </div>
+                <div class="vd-modal-bottom">
+                    <button class="vd-button-small vd-color-primary" id="btnSortByPriceProduct1">Sort By Price
+                    </button>
+                    <button class="vd-button-small vd-color-primary" id="btnSortByFlagProduct1">Sort By Flag
+                    </button>
+                </div>
+            </div>
+
+            <div class="vd-field">
+                <div class="vd-label">Select Product</div>
+                <div class="vd-select-container">
+                    <select class="vd-select" id="product">
+                        <option value="">-----Select-----</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="vend-iframe2">
+    <div class="vd-modal-container">
+        <div class="vd-modal-top">
+            <h2>For security</h2>
+            <div class="vd-field">
+                <div class="vd-label">Login</div>
+                <div class="vd-select-container">
+                    <div class="vd-value">
+                        <input class="vd-input" placeholder="Enter login">
+                    </div>
+                </div>
+            </div>
+            <div class="vd-field">
+                <div class="vd-label">Password</div>
+                <div class="vd-select-container">
+                    <div class="vd-value">
+                        <input class="vd-input" placeholder="Enter password">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="vd-modal-bottom">
+            <button class="vd-button-small vd-color-primary">Next</button>
+        </div>
+    </div>
+</div>
+
 <input type="button" id="btnSort" Value="Sort By Category"/>
-<br/><br/><br/><br/><br/>
-
-<select id="subcategory" title="Subcategory" <%--style="display:none"--%>>
-    <option selected disabled hidden>Choose here</option>
-    <option value="test" onchange="getSubcategory(this)"></option>
-</select>
-
-<select id="producer" title="Producer" <%--style="display:none"--%>>
-    <option selected disabled hidden>Choose here</option>
-    <option value="test" onchange="getProducer(this)"></option>
-</select>
-<br/><br/><br/><br/><br/>
-
-<select id="product" title="Product">
-    <option selected disabled hidden>Choose here</option>
-    <option value="test" onchange="getSubcategory(this)" <%--style="display:none"--%>></option>
-</select>
-<input type="button" id="btnSortByPriceProduct" Value="Sort By Price"/>
-<input type="button" id="btnSortByFlagProduct" Value="Sort By Flag"/>
-
 </body>
 </html>

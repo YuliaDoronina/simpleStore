@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IProducerRepository {
 
-    List getAllBySubcategory(Integer id);
+    List getAllByCategory(Integer id);
 }

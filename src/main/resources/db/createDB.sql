@@ -48,13 +48,14 @@ VALUES ('tablet1', '123', 'description tablet1', TRUE, 1), ('tablet2', '898', 'd
 
 SELECT
   producer.id_producer,
-  producer.name_producer
+  producer.name_producer,
+  product.name_product
 FROM producer
-  LEFT JOIN summary ON producer.id_producer = summary.id_producer
+  INNER JOIN summary ON producer.id_producer = summary.id_producer
   JOIN product ON summary.id_product = product.id_product
   JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory
   JOIN category ON subcategory.id_category = category.id_category
-WHERE category.id_category = 1
+WHERE category.id_category = 4
 GROUP BY producer.id_producer;
 
 SELECT
@@ -62,8 +63,11 @@ SELECT
   product.name_product,
   product.price_product,
   product.description_product,
-  product.flag_product
+  product.flag_product,
+  producer.name_producer
 FROM product
-  LEFT JOIN summary ON product.id_product = summary.id_producer
+  INNER JOIN summary ON product.id_product = summary.id_product
   JOIN producer ON summary.id_producer = producer.id_producer
-WHERE producer.id_producer = 1;
+  INNER JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory
+  JOIN category ON subcategory.id_category = category.id_category
+WHERE producer.id_producer = 5 AND category.id_category = 4;

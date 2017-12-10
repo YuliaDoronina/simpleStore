@@ -4,26 +4,12 @@ function getSubcategory() {
         {categoryId: $('#category').val()},
         function (data) {
             var options = '';
+            options += '<option value="">-----Select-----</option>';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
             }
             $('#subcategory').html(options);
-
             //getProduct();
-        }
-    );
-}
-
-function getProduct(url, x) {
-    $.getJSON(
-        url,
-        {id: $(x).val()},
-        function (data) {
-            var options = '';
-            for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
-            }
-            $('#product').html(options);
         }
     );
 }
@@ -34,58 +20,93 @@ function getProducer() {
         {categoryId: $('#category').val()},
         function (data) {
             var options = '';
+            options += '<option value="">-----Select-----</option>';
             for (var i = 0; i < data.length; i++) {
                 options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
             }
             $('#producer').html(options);
-
             //getProduct();
         }
     );
 }
 
+function getProductBySubcategory() {
+    $.getJSON(
+        "/listProductByCategory",
+        {subcategoryId: $('#subcategory').val()},
+        function (data) {
+            var options = '';
+            for (var i = 0; i < data.length; i++) {
+                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
+            }
+            $('#product').html(options);
+        }
+    );
+}
+
+function getProductByProducer() {
+    $.getJSON(
+        "/listProductByProducer",
+        {idProducer: $('#producer').val(), idCategory: $('#category').val()},
+        function (data) {
+            var options = '';
+            for (var i = 0; i < data.length; i++) {
+                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
+            }
+            $('#product').html(options);
+        }
+    );
+}
+
 $(document).ready(function () {
-    $('#category').change(function () {
+    $('#category').click(function () {
         getSubcategory();
         getProducer();
     });
 
-    $('#category').click(function () {
-        $('#subcategory').show(1000);
-    });
-
-    $('#subcategory').change(function () {
-        getProduct("/listProductByCategory", '#subcategory');
-    });
-
     $('#subcategory').click(function () {
-        $('#category').show(1000);
+        getProductBySubcategory();
+        $('#producer').prop('selectedIndex', 0);
+
     });
 
     $('#producer').click(function () {
-        getProduct("/listProductByProducer", '#producer');
+        $('#subcategory').prop('selectedIndex', 0);
+        getProductByProducer();
     });
-
 });
 
 /*SORTING CATEGORIES*/
 $(document).ready(function () {
-    $('#btnSort').click(function () {
-        $("#category").html($('#category option').sort(function (x, y) {
-            return $(x).text() < $(y).text() ? -1 : 1;
-        }));
-        $("#category").get(0).selectedIndex = 0;
+    $('#btnSortByCategory').click(function () {
+        sortByCategory();
+    });
 
-        getSubcategory();
-        getProduct();
+    $('#btnSortByPriceProduct').click(function () {
+        sortJson('price', true, "/listProductByCategory");
+    });
+
+    $('#btnSortByFlagProduct').click(function () {
+        sortJson('flag', true);
     });
 });
 
+/*1. SORTING CATEGORIES*/
+function sortByCategory() {
+    $("#category").html($('#category option').sort(function (x, y) {
+        return $(x).text() < $(y).text() ? -1 : 1;
+    }));
+    $("#category").get(0).selectedIndex = 0;
 
-/*SORTING PRODUCTS*/
-function sortJson(prop, asc) {
+    getSubcategory();
+    getProducer();
+    $("#product").val();
+}
+
+/*2. SORTING PRODUCTS*/
+function sortJson(prop, asc, url) {
     $.getJSON(
-        "/listProduct",
+        url,
         {subcategoryId: $('#subcategory').val()},
         function (data) {
             data = data.sort(function (a, b) {
@@ -112,12 +133,4 @@ function sortJson(prop, asc) {
     );
 }
 
-$(function () {
-    $('#btnSortByPriceProduct').click(function () {
-        sortJson('price', true);
-    });
 
-    $('#btnSortByFlagProduct').click(function () {
-        sortJson('flag', true);
-    });
-});

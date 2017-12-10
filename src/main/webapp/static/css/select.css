@@ -1,0 +1,153 @@
+html, body {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-weight: bold;
+    margin-bottom: 28px;
+    font-size: 24px;
+}
+
+.vd-field {
+    margin-bottom: 5px;
+}
+
+.vd-label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-family: lato, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+
+.vd-field-help {
+    font-size: 15px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.vd-select-container {
+    position: relative;
+    background-color: #FFFFFF;
+    width: 100%;
+    display: block;
+    border-radius: 3px;
+}
+
+.vd-select {
+    border: 1px solid #D7D7D7;
+    padding: 12px 36px 12px 12px;
+    border-radius: 3px;
+    font-family: lato, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/392/select-arrow.png") no-repeat center right 15px transparent;
+    width: 100%;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s;
+    margin: 0;
+}
+
+:focus {
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.vd-select-arrows {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    height: 42px;
+    width: 37px;
+}
+
+.vd-input {
+    box-sizing: border-box;
+    font-family: lato, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    width: 100%;
+    padding: 12px;
+    box-shadow: none;
+    border: 1px solid #D7D7D7;
+    border-radius: 3px;
+    outline: none;
+    background-color: #FFFFFF;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    -webkit-transition-property: border-color, box-shadow;
+    transition-property: border-color, box-shadow;
+}
+
+.vd-field .vd-value {
+    position: relative;
+    font-size: 15px;
+}
+
+.vd-button-small {
+    font-family: lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    /*-webkit-font-smoothing: auto;*/
+    font-weight: 300;
+    background-color: #44B773;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    color: #FFFFFF;
+    min-width: 150px;
+    padding: 12px 20px;
+    text-align: center;
+    cursor: pointer;
+    margin: 7px 4px 4px;
+}
+
+.vd-color-primary {
+    background-color: #15b786;
+}
+
+.vd-color-secondary {
+    background-color: #446A81;
+}
+
+.vend-iframe {
+    width: 700px;
+    height: 600px;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    margin: 4% auto;
+}
+
+.vend-iframe2 {
+    width: 700px;
+    height: 350px;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    margin: 4% auto;
+}
+
+.vd-modal-container {
+    height: 100%;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: lato, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: 400;
+}
+
+.vd-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.vd-modal-bottom {
+    display: flex;
+    justify-content: flex-end;
+}

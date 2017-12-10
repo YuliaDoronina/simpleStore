@@ -32,8 +32,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getAllByProducer(Integer id) {
-        List list = repository.getAllById(id);
+    public List<Product> getAllByProducer(Integer idProducer, Integer idCategory) {
+        List list = repository.getAllByProducer(idProducer, idCategory);
         LOGGER.info("Get all by producer: {}", list);
         return list;
     }

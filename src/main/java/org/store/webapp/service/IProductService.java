@@ -10,5 +10,5 @@ public interface IProductService {
 
     List<Product> getAllById(Integer id);
 
-    List<Product> getAllByProducer(Integer id);
+    List<Product> getAllByProducer(Integer idProducer, Integer idCategory);
 }

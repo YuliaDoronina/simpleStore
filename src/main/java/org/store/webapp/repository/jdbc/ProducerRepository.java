@@ -38,13 +38,13 @@ public class ProducerRepository implements IProducerRepository {
     }
 
     @Override
-    public List getAllBySubcategory(Integer id) {
+    public List getAllByCategory(Integer id) {
         List<Producer> producers = new ArrayList<>();
         List<Map<String, Object>> rows = template.queryForList("SELECT " +
                 "producer.id_producer, " +
                 "producer.name_producer " +
                 "FROM producer " +
-                "LEFT JOIN summary ON producer.id_producer = summary.id_producer\n" +
+                "INNER JOIN summary ON producer.id_producer = summary.id_producer\n" +
                 "JOIN product ON summary.id_product = product.id_product\n" +
                 "JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory " +
                 "JOIN category ON subcategory.id_category = category.id_category\n" +

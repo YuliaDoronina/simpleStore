@@ -50,17 +50,19 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List getAllByProducer(Integer id) {
-        List<Map<String, Object>> rows = template.queryForList("SELECT\n " +
-                "product.id_product,\n " +
+    public List getAllByProducer(Integer idProducer, Integer idCategory) {
+        List<Map<String, Object>> rows = template.queryForList("SELECT\n" +
+                "product.id_product,\n" +
                 "product.name_product,\n" +
                 "product.price_product,\n" +
                 "product.description_product,\n" +
                 "product.flag_product\n" +
                 "FROM product\n" +
-                "LEFT JOIN summary ON product.id_product = summary.id_producer\n" +
+                "INNER JOIN summary ON product.id_product = summary.id_product\n" +
                 "JOIN producer ON summary.id_producer = producer.id_producer\n" +
-                "WHERE producer.id_producer =?", id);
+                "INNER JOIN subcategory ON product.id_subcategory = subcategory.id_subcategory\n" +
+                "JOIN category ON subcategory.id_category = category.id_category\n" +
+                "WHERE producer.id_producer=? AND category.id_category=?", idProducer, idCategory);
 
         return getInfo(rows);
     }

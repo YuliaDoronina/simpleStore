@@ -46,27 +46,20 @@ public class RootController {
 
     @RequestMapping(value = "/listProductByCategory")
     public @ResponseBody
-    List<Product> getAllProductById(@RequestParam(value = "id") Integer subcategoryId) {
+    List<Product> getAllProductById(@RequestParam(value = "subcategoryId") Integer subcategoryId) {
         return productService.getAllById(subcategoryId);
     }
 
     @RequestMapping(value = "/listProductByProducer")
     public @ResponseBody
-    List<Product> getAllProductByProducer(@RequestParam(value = "id") Integer producerId) {
-        return productService.getAllByProducer(producerId);
+    List<Product> getAllProductByProducer(@RequestParam(value = "idProducer") Integer idProducer, @RequestParam(value = "idCategory") Integer idCategory) {
+        return productService.getAllByProducer(idProducer, idCategory);
     }
 
     @RequestMapping(value = "/listProducer")
     public @ResponseBody
-    List<Producer> getAllBySubcategory(@RequestParam(value = "categoryId") Integer categoryId) {
-        return producerService.getAllBySubcategory(categoryId);
+    List<Producer> getAllByCategory(@RequestParam(value = "categoryId") Integer categoryId) {
+        return producerService.getAllByCategory(categoryId);
     }
-
-
-   /* @RequestMapping(value = "/categories", method = RequestMethod.GET)
-    public @ResponseBody
-    List<Category> findAllCategories() {
-        return categoryService.getAll();
-    }*/
 
 }
