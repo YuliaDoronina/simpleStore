@@ -41,12 +41,12 @@ public class ProducerRepository implements IProducerRepository {
 
     @Override
     public List getAll() {
-        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM producer");
-        return getInfo(rows);
+        return template.query("SELECT * FROM producer", rowMapper);
     }
 
     @Override
     public List getAllByCategory(Integer id) {
+        List<Producer> producers = new ArrayList<>();
         List<Map<String, Object>> rows = template.queryForList("SELECT " +
                 "producer.id_producer, " +
                 "producer.name_producer " +
@@ -58,11 +58,6 @@ public class ProducerRepository implements IProducerRepository {
                 "WHERE category.id_category=? " +
                 "GROUP BY producer.id_producer", id);
 
-        return getInfo(rows);
-    }
-
-    private List getInfo(List<Map<String, Object>> rows) {
-        List<Producer> producers = new ArrayList<>();
         for (Map row : rows) {
             Producer product = new Producer();
             product.setIdProducer((Integer) row.get("id_producer"));

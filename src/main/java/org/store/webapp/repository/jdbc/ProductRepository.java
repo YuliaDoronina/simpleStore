@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.store.webapp.model.Product;
 import org.store.webapp.repository.IProductRepository;
 
 import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +23,10 @@ public class ProductRepository implements IProductRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(Product.class);
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcTemplate template;
 
     @Autowired
-    private JdbcTemplate template;
+    private DataSource source;
 
     private final BeanPropertyRowMapper<Product> rowMapper = BeanPropertyRowMapper.newInstance(Product.class);
 
@@ -41,8 +40,7 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List getAll() {
-        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM product");
-        return getInfo(rows);
+        return template.query("SELECT * FROM product", rowMapper);
     }
 
     @Override
@@ -98,18 +96,37 @@ public class ProductRepository implements IProductRepository {
     @Override
     public Product save(Product product) {
         LOGGER.info("Save product: {}", product);
-        MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("nameProduct", product.getNameProduct());
-        map.addValue("priceProduct", product.getPriceProduct());
-        map.addValue("descriptionProduct", product.getDescriptionProduct());
-        map.addValue("flagProduct", product.getFlagProduct());
 
-        if (product.getIdProduct() == null) {
-            Number number = insert.executeAndReturnKey(map);
-            product.setIdProduct(number.intValue());
-        } else {
-            map.addValue("idProduct", product.getIdProduct());
-            namedParameterJdbcTemplate.update("UPDATE product SET name_product=:nameProduct, price_product=:priceProduct, description_product=:descriptionProduct, flag_product=:flagProduct WHERE id_product=:idProduct", map);
+        Connection connection = null;
+        try {
+            connection = source.getConnection();
+            PreparedStatement statement;
+            if (product.getIdProduct() == null) {
+                statement = connection.prepareStatement("INSERT INTO product (name_product, price_product, description_product, flag_product, id_subcategory) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    product.setIdProduct(resultSet.getInt(1));
+                }
+            } else {
+                statement = connection.prepareStatement("UPDATE product SET name_product=?, price_product=?, description_product=?, flag_product=?, id_subcategory=? WHERE id_product=?");
+                statement.setInt(6, product.getIdProduct());
+            }
+
+            statement.setString(1, product.getNameProduct());
+            statement.setString(2, product.getPriceProduct());
+            statement.setString(3, product.getDescriptionProduct());
+            statement.setBoolean(4, product.getFlagProduct());
+            statement.setInt(5, product.getValueSubcategory());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert connection != null;
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return product;
     }

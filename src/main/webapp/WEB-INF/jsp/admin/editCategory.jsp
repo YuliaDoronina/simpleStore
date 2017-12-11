@@ -13,7 +13,7 @@
     <input type="hidden" name="idCategory" value="${category.idCategory}">
 
     <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Text</label>
+        <label for="example-text-input" class="col-2 col-form-label">Name</label>
         <div class="col-10">
             <input class="form-control" id="example-text-input"
                    type="text"

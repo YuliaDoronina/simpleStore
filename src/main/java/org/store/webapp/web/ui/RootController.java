@@ -40,13 +40,13 @@ public class RootController {
 
     @RequestMapping(value = "/listSubcategory")
     public @ResponseBody
-    List<Subcategory> getAllSubcategoryById(@RequestParam(value = "categoryId") Integer categoryId) {
+    List<Subcategory> getAllSubcategoryById(@RequestParam(value = "idCategory") Integer categoryId) {
         return subcategoryService.getAllById(categoryId);
     }
 
     @RequestMapping(value = "/listProductByCategory")
     public @ResponseBody
-    List<Product> getAllProductById(@RequestParam(value = "subcategoryId") Integer subcategoryId) {
+    List<Product> getAllProductById(@RequestParam(value = "idSubcategory") Integer subcategoryId) {
         return productService.getAllById(subcategoryId);
     }
 
@@ -58,7 +58,7 @@ public class RootController {
 
     @RequestMapping(value = "/listProducer")
     public @ResponseBody
-    List<Producer> getAllByCategory(@RequestParam(value = "categoryId") Integer categoryId) {
+    List<Producer> getAllByCategory(@RequestParam(value = "idCategory") Integer categoryId) {
         return producerService.getAllByCategory(categoryId);
     }
 }

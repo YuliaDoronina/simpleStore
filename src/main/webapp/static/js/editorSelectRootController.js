@@ -1,7 +1,7 @@
 function getSubcategory() {
     $.getJSON(
         "/listSubcategory",
-        {categoryId: $('#category').val()},
+        {idCategory: $('#category').val()},
         function (data) {
             var options = '';
             options += '<option value="">-----Select-----</option>';
@@ -17,7 +17,7 @@ function getSubcategory() {
 function getProducer() {
     $.getJSON(
         "/listProducer",
-        {categoryId: $('#category').val()},
+        {idCategory: $('#category').val()},
         function (data) {
             var options = '';
             options += '<option value="">-----Select-----</option>';
@@ -33,7 +33,7 @@ function getProducer() {
 function getProductBySubcategory() {
     $.getJSON(
         "/listProductByCategory",
-        {subcategoryId: $('#subcategory').val()},
+        {idSubcategory: $('#subcategory').val()},
         function (data) {
             var options = '';
             for (var i = 0; i < data.length; i++) {
@@ -67,12 +67,11 @@ $(document).ready(function () {
     $('#subcategory').click(function () {
         getProductBySubcategory();
         $('#producer').prop('selectedIndex', 0);
-
     });
 
     $('#producer').click(function () {
-        $('#subcategory').prop('selectedIndex', 0);
         getProductByProducer();
+        $('#subcategory').prop('selectedIndex', 0);
     });
 });
 
@@ -100,15 +99,14 @@ function sortByCategory() {
 
     getSubcategory();
     getProducer();
-    getProductByProducer();
-   /* $("#product").val("");*/
+    $("#product").empty();
 }
 
 /*2. SORTING PRODUCTS*/
 function sortJson(prop, asc, url) {
     $.getJSON(
         url,
-        {subcategoryId: $('#subcategory').val()},
+        {idSubcategory: $('#subcategory').val()},
         function (data) {
             data = data.sort(function (a, b) {
                 switch (prop) {

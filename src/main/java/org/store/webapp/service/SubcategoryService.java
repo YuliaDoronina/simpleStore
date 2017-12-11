@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.store.webapp.model.Subcategory;
 import org.store.webapp.repository.ISubcategoryRepository;
+import org.store.webapp.util.ExceptionCheck;
 
 import java.util.List;
 
@@ -20,12 +21,12 @@ public class SubcategoryService implements ISubcategoryService {
 
     @Override
     public List<Subcategory> getAllById(Integer id) {
-        return repository.getAllById(id);
+        return ExceptionCheck.check(repository.getAllById(id), id);
     }
 
     @Override
     public Subcategory getById(Integer id) {
-        return repository.getById(id);
+        return ExceptionCheck.check(repository.getById(id), id);
     }
 
     @Override
@@ -35,11 +36,13 @@ public class SubcategoryService implements ISubcategoryService {
 
     @Override
     public void delete(Integer id) {
+        ExceptionCheck.check(repository.getById(id), id);
         repository.delete(id);
     }
 
     @Override
     public void update(Subcategory category) {
+        ExceptionCheck.check(repository.getById(category.getIdSubcategory()), category.getIdSubcategory());
         repository.save(category);
     }
 }

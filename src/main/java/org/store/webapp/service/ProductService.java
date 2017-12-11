@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.store.webapp.model.Product;
 import org.store.webapp.repository.IProductRepository;
+import org.store.webapp.util.ExceptionCheck;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Product> getAllById(Integer id) {
-        return repository.getAllById(id);
+        return ExceptionCheck.check(repository.getAllById(id), id);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getById(Integer id) {
-        return repository.getById(id);
+        return ExceptionCheck.check(repository.getById(id), id);
     }
 
     @Override
@@ -40,11 +41,13 @@ public class ProductService implements IProductService {
 
     @Override
     public void delete(Integer id) {
+        ExceptionCheck.check(repository.getById(id), id);
         repository.delete(id);
     }
 
     @Override
     public void update(Product product) {
+        ExceptionCheck.check(repository.getById(product.getIdProduct()), product.getIdProduct());
         repository.save(product);
     }
 }

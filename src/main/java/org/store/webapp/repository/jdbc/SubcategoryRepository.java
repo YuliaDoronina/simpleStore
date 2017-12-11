@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.store.webapp.model.Subcategory;
 import org.store.webapp.repository.ISubcategoryRepository;
 
 import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +23,10 @@ public class SubcategoryRepository implements ISubcategoryRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(Subcategory.class);
 
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcTemplate template;
 
     @Autowired
-    private JdbcTemplate template;
+    private DataSource source;
 
     private final BeanPropertyRowMapper<Subcategory> rowMapper = BeanPropertyRowMapper.newInstance(Subcategory.class);
 
@@ -41,8 +40,7 @@ public class SubcategoryRepository implements ISubcategoryRepository {
 
     @Override
     public List getAll() {
-        List<Map<String, Object>> rows = template.queryForList("SELECT * FROM subcategory");
-        return getInfo(rows);
+        return template.query("SELECT * FROM subcategory", rowMapper);
     }
 
     @Override
@@ -77,15 +75,34 @@ public class SubcategoryRepository implements ISubcategoryRepository {
     @Override
     public Subcategory save(Subcategory subcategory) {
         LOGGER.info("Save subcategory: {}", subcategory);
-        MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("nameSubcategory", subcategory.getNameSubcategory());
 
-        if (subcategory.getIdSubcategory() == null) {
-            Number number = insert.executeAndReturnKey(map);
-            subcategory.setIdSubcategory(number.intValue());
-        } else {
-            map.addValue("idSubcategory", subcategory.getIdSubcategory());
-            namedParameterJdbcTemplate.update("UPDATE subcategory SET name_subcategory=:nameSubcategory WHERE id_subcategory=:idSubcategory", map);
+        Connection connection = null;
+        try {
+            connection = source.getConnection();
+            PreparedStatement statement;
+            if (subcategory.getIdSubcategory() == null) {
+                statement = connection.prepareStatement("INSERT INTO subcategory (name_subcategory, id_category) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    subcategory.setIdSubcategory(resultSet.getInt(1));
+                }
+            } else {
+                statement = connection.prepareStatement("UPDATE subcategory SET name_subcategory=?, id_category=? WHERE id_subcategory=?");
+                statement.setInt(3, subcategory.getIdSubcategory());
+            }
+
+            statement.setString(1, subcategory.getNameSubcategory());
+            statement.setInt(2, subcategory.getValueCategory());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert connection != null;
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return subcategory;
     }
@@ -95,5 +112,4 @@ public class SubcategoryRepository implements ISubcategoryRepository {
         LOGGER.info("Delete subcategory by id: {}", id);
         return template.update("DELETE FROM subcategory WHERE subcategory.id_subcategory=?", id) > 0;
     }
-
 }

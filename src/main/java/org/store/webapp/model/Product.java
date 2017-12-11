@@ -10,25 +10,27 @@ public class Product {
     private String priceProduct;
     private String descriptionProduct;
     private Boolean flagProduct;
-    private Subcategory valueSubcategory;
+    private Integer valueSubcategory;
     private Set<Producer> producerSet = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(Integer idProduct, String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct) {
+    public Product(Integer idProduct, String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct, Integer valueSubcategory) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
         this.descriptionProduct = descriptionProduct;
         this.flagProduct = flagProduct;
+        this.valueSubcategory = valueSubcategory;
     }
 
-    public Product(String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct) {
+    public Product(String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct, Integer valueSubcategory) {
         this.nameProduct = nameProduct;
         this.priceProduct = priceProduct;
         this.descriptionProduct = descriptionProduct;
         this.flagProduct = flagProduct;
+        this.valueSubcategory = valueSubcategory;
     }
 
     public Integer getIdProduct() {
@@ -71,11 +73,11 @@ public class Product {
         this.flagProduct = flagProduct;
     }
 
-    public Subcategory getValueSubcategory() {
+    public Integer getValueSubcategory() {
         return valueSubcategory;
     }
 
-    public void setValueSubcategory(Subcategory valueSubcategory) {
+    public void setValueSubcategory(Integer valueSubcategory) {
         this.valueSubcategory = valueSubcategory;
     }
 
@@ -100,7 +102,8 @@ public class Product {
             return false;
         if (descriptionProduct != null ? !descriptionProduct.equals(product.descriptionProduct) : product.descriptionProduct != null)
             return false;
-        return flagProduct != null ? flagProduct.equals(product.flagProduct) : product.flagProduct == null;
+        if (flagProduct != null ? !flagProduct.equals(product.flagProduct) : product.flagProduct != null) return false;
+        return valueSubcategory != null ? valueSubcategory.equals(product.valueSubcategory) : product.valueSubcategory == null;
     }
 
     @Override
@@ -110,6 +113,7 @@ public class Product {
         result = 31 * result + (priceProduct != null ? priceProduct.hashCode() : 0);
         result = 31 * result + (descriptionProduct != null ? descriptionProduct.hashCode() : 0);
         result = 31 * result + (flagProduct != null ? flagProduct.hashCode() : 0);
+        result = 31 * result + (valueSubcategory != null ? valueSubcategory.hashCode() : 0);
         return result;
     }
 
@@ -121,6 +125,8 @@ public class Product {
                 ", priceProduct='" + priceProduct + '\'' +
                 ", descriptionProduct='" + descriptionProduct + '\'' +
                 ", flagProduct=" + flagProduct +
+                ", valueSubcategory=" + valueSubcategory +
                 '}';
     }
+
 }

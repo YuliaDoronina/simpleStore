@@ -7,20 +7,21 @@ public class Subcategory {
 
     private Integer idSubcategory;
     private String nameSubcategory;
-    /*private Integer idCategory;*/
-    private Category valueCategory;
+    private Integer valueCategory;
     private Set<Product> productSet = new HashSet<>();
 
     public Subcategory() {
     }
 
-    public Subcategory(Integer idSubcategory, String nameSubcategory) {
+    public Subcategory(Integer idSubcategory, String nameSubcategory, Integer valueCategory) {
         this.idSubcategory = idSubcategory;
         this.nameSubcategory = nameSubcategory;
+        this.valueCategory = valueCategory;
     }
 
-    public Subcategory(String nameSubcategory) {
+    public Subcategory(String nameSubcategory, Integer valueCategory) {
         this.nameSubcategory = nameSubcategory;
+        this.valueCategory = valueCategory;
     }
 
     public Integer getIdSubcategory() {
@@ -39,12 +40,11 @@ public class Subcategory {
         this.nameSubcategory = nameSubcategory;
     }
 
-
-    public Category getValueCategory() {
+    public Integer getValueCategory() {
         return valueCategory;
     }
 
-    public void setValueCategory(Category valueCategory) {
+    public void setValueCategory(Integer valueCategory) {
         this.valueCategory = valueCategory;
     }
 
@@ -65,13 +65,16 @@ public class Subcategory {
 
         if (idSubcategory != null ? !idSubcategory.equals(that.idSubcategory) : that.idSubcategory != null)
             return false;
-        return nameSubcategory != null ? nameSubcategory.equals(that.nameSubcategory) : that.nameSubcategory == null;
+        if (nameSubcategory != null ? !nameSubcategory.equals(that.nameSubcategory) : that.nameSubcategory != null)
+            return false;
+        return valueCategory != null ? valueCategory.equals(that.valueCategory) : that.valueCategory == null;
     }
 
     @Override
     public int hashCode() {
         int result = idSubcategory != null ? idSubcategory.hashCode() : 0;
         result = 31 * result + (nameSubcategory != null ? nameSubcategory.hashCode() : 0);
+        result = 31 * result + (valueCategory != null ? valueCategory.hashCode() : 0);
         return result;
     }
 
@@ -80,7 +83,7 @@ public class Subcategory {
         return "Subcategory{" +
                 "idSubcategory=" + idSubcategory +
                 ", nameSubcategory='" + nameSubcategory + '\'' +
+                ", valueCategory=" + valueCategory +
                 '}';
     }
-
 }

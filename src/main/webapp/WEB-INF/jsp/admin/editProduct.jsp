@@ -45,21 +45,34 @@
     <div class="form-group row">
         <label class="col-2 col-form-label">Flag</label>
         <div class="col-10">
-            <select  class="form-control" required name="flagProduct" value="${product.flagProduct}">
-                <option selected>Choose...</option>
+            <select class="form-control" name="flagProduct" value="${product.flagProduct}" required>
+                <option value="" selected>Choose...</option>
                 <option value="true">true</option>
                 <option value="false">false</option>
             </select>
         </div>
     </div>
+    <%--TODO: select item from "subcategory"--%>
     <div class="form-group row">
         <label class="col-2 col-form-label">Subcategory</label>
         <div class="col-10">
+            <select class="form-control" name="valueSubcategory" value="${product.valueSubcategory}" required>
+                <option value="" selected>Choose...</option>
+                <c:forEach var="i" begin="1" end="20">
+                    <option value="${i}">${i}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <%--TODO: select item from "Producer"--%>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Producer</label>
+        <div class="col-10">
             <select class="form-control" required name="nameSubcategory">
                 <option selected>Choose...</option>
-                <c:forEach var="subcategory" items="${product.valueSubcategory}">
-                    <jsp:useBean id="subcategory" class="org.store.webapp.model.Subcategory"/>
-                    <option value="${subcategory.idSubcategory}">${subcategory.nameSubcategory}</option>
+                <c:forEach var="producer" items="${producerTest}">
+                    <jsp:useBean id="producer" class="org.store.webapp.model.Producer"/>
+                    <option value="${producer.idProducer}">${producer.nameProducer}</option>
                 </c:forEach>
             </select>
         </div>

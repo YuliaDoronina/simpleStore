@@ -6,7 +6,7 @@
 <head>
     <link href="<c:url value="/static/css/select.css" />" rel="stylesheet">
     <script type="text/javascript" src="<c:url value="/static/js/jquery/3.2/jquery-3.2.1.min.js" />"></script>
-    <script type="text/javascript" src="<c:url value="/static/js/editorSelect.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/static/js/editorSelectRootController.js" />"></script>
 
     <title>Start</title>
 </head>
