@@ -3,76 +3,83 @@ package org.store.webapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Subcategory extends BaseEntity {
+public class Subcategory {
 
-    private Integer idCategory;
-    private Category category;
-    private Set<Product> products = new HashSet<>();
+    private Integer idSubcategory;
+    private String nameSubcategory;
+    /*private Integer idCategory;*/
+    private Category valueCategory;
+    private Set<Product> productSet = new HashSet<>();
 
     public Subcategory() {
     }
 
-    public Subcategory(Integer id, String name) {
-        super(id, name);
+    public Subcategory(Integer idSubcategory, String nameSubcategory) {
+        this.idSubcategory = idSubcategory;
+        this.nameSubcategory = nameSubcategory;
     }
 
-    public Subcategory(Integer id, String name, Integer idCategory) {
-        super(id, name);
-        this.idCategory = idCategory;
+    public Subcategory(String nameSubcategory) {
+        this.nameSubcategory = nameSubcategory;
     }
 
-    public Subcategory(String name, Integer idCategory) {
-        super(name);
-        this.idCategory = idCategory;
+    public Integer getIdSubcategory() {
+        return idSubcategory;
     }
 
-    public Integer getIdCategory() {
-        return idCategory;
+    public void setIdSubcategory(Integer idSubcategory) {
+        this.idSubcategory = idSubcategory;
     }
 
-    public void setIdCategory(Integer idCategory) {
-        this.idCategory = idCategory;
+    public String getNameSubcategory() {
+        return nameSubcategory;
     }
 
-    public Category getCategory() {
-        return category;
+    public void setNameSubcategory(String nameSubcategory) {
+        this.nameSubcategory = nameSubcategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+
+    public Category getValueCategory() {
+        return valueCategory;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public void setValueCategory(Category valueCategory) {
+        this.valueCategory = valueCategory;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public Set<Product> getProductSet() {
+        return productSet;
+    }
+
+    public void setProductSet(Set<Product> productSet) {
+        this.productSet = productSet;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Subcategory that = (Subcategory) o;
 
-        return idCategory != null ? idCategory.equals(that.idCategory) : that.idCategory == null;
+        if (idSubcategory != null ? !idSubcategory.equals(that.idSubcategory) : that.idSubcategory != null)
+            return false;
+        return nameSubcategory != null ? nameSubcategory.equals(that.nameSubcategory) : that.nameSubcategory == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (idCategory != null ? idCategory.hashCode() : 0);
+        int result = idSubcategory != null ? idSubcategory.hashCode() : 0;
+        result = 31 * result + (nameSubcategory != null ? nameSubcategory.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Subcategory{" +
-                super.toString() +
-                "idCategory=" + idCategory +
+                "idSubcategory=" + idSubcategory +
+                ", nameSubcategory='" + nameSubcategory + '\'' +
                 '}';
     }
 

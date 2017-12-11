@@ -1,4 +1,4 @@
-/*USE storedb;*/
+/*USE storeDB;*/
 
 DROP TABLE IF EXISTS summary;
 DROP TABLE IF EXISTS product;
@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS category;
 
 CREATE TABLE category (
   id_category   INTEGER PRIMARY KEY AUTO_INCREMENT,
-  type_category VARCHAR(100)
+  type_category VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE subcategory (
@@ -37,7 +37,7 @@ CREATE TABLE summary (
   id_product  INTEGER NOT NULL,
   id_producer INTEGER NOT NULL,
   PRIMARY KEY (id_product, id_producer),
-  FOREIGN KEY (id_product) REFERENCES product (id_product),
+  FOREIGN KEY (id_product) REFERENCES product (id_product) ON DELETE CASCADE ,
   FOREIGN KEY (id_producer) REFERENCES producer (id_producer)
 );
 

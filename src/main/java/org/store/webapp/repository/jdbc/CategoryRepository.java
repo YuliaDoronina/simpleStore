@@ -45,8 +45,8 @@ public class CategoryRepository implements ICategoryRepository {
         List<Map<String, Object>> rows = template.queryForList("SELECT * FROM category");
         for (Map row : rows) {
             Category category = new Category();
-            category.setId((Integer) row.get("id_category"));
-            category.setName((String) row.get("type_category"));
+            category.setIdCategory((Integer) row.get("id_category"));
+            category.setTypeCategory((String) row.get("type_category"));
             categories.add(category);
         }
 
@@ -68,15 +68,15 @@ public class CategoryRepository implements ICategoryRepository {
     public Category save(Category category) {
         LOGGER.info("Save category: {}", category);
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("name", category.getName());
+        map.addValue("typeCategory", category.getTypeCategory());
 
-        if (category.getId() == null) {
+        if (category.getIdCategory() == null) {
             Number number = insert.executeAndReturnKey(map);
-            category.setId(number.intValue());
+            category.setIdCategory(number.intValue());
         } else {
-            map.addValue("id", category.getId());
+            map.addValue("idCategory", category.getIdCategory());
             namedParameterJdbcTemplate
-                    .update("UPDATE category SET type_category=:name WHERE id_category=:id", map);
+                    .update("UPDATE category SET type_category=:typeCategory WHERE id_category=:idCategory", map);
         }
         return category;
     }

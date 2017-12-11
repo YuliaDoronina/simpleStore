@@ -21,16 +21,16 @@
         <c:forEach items="${producerList}" var="producer">
             <tr>
                 <jsp:useBean id="producer" class="org.store.webapp.model.Producer"/>
-                <td>${producer.id}</td>
-                <td>${producer.name}</td>
-                <td><a href="<c:url value='admin/producers/update?id=${producer.id}' />"
+                <td>${producer.idProducer}</td>
+                <td>${producer.nameProducer}</td>
+                <td><a href="<c:url value='/admin/producers/update?id=${producer.idProducer}' />"
                        class="btn btn-info custom-width">UPDATE</a></td>
-                <td><a href="<c:url value='admin/producers/delete?id=${producer.id}' />"
+                <td><a href="<c:url value='/admin/producers/delete?id=${producer.idProducer}' />"
                        class="btn btn-danger custom-width">DELETE</a></td>
             </tr>
         </c:forEach>
         <tr>
-            <td colspan="4"><a href="admin/producers/create">CREATE NEW ONE</a></td>
+            <td colspan="4"><a href="/admin/producers/create">CREATE NEW ONE</a></td>
         </tr>
         </tbody>
     </table>

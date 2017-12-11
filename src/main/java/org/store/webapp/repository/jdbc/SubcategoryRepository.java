@@ -55,9 +55,8 @@ public class SubcategoryRepository implements ISubcategoryRepository {
         List<Subcategory> subcategories = new ArrayList<>();
         for (Map row : rows) {
             Subcategory subcategory = new Subcategory();
-            subcategory.setId((Integer) row.get("id_subcategory"));
-            subcategory.setName((String) row.get("name_subcategory"));
-            subcategory.setIdCategory((Integer) row.get("id_category"));
+            subcategory.setIdSubcategory((Integer) row.get("id_subcategory"));
+            subcategory.setNameSubcategory((String) row.get("name_subcategory"));
             subcategories.add(subcategory);
         }
 
@@ -79,15 +78,14 @@ public class SubcategoryRepository implements ISubcategoryRepository {
     public Subcategory save(Subcategory subcategory) {
         LOGGER.info("Save subcategory: {}", subcategory);
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("name", subcategory.getName());
-        map.addValue("idCategory", subcategory.getIdCategory());
+        map.addValue("nameSubcategory", subcategory.getNameSubcategory());
 
-        if (subcategory.getId() == null) {
+        if (subcategory.getIdSubcategory() == null) {
             Number number = insert.executeAndReturnKey(map);
-            subcategory.setId(number.intValue());
+            subcategory.setIdSubcategory(number.intValue());
         } else {
-            map.addValue("id", subcategory.getId());
-            namedParameterJdbcTemplate.update("UPDATE subcategory SET name_subcategory=:name, id_category=:idCategory WHERE id_subcategory=:id", map);
+            map.addValue("idSubcategory", subcategory.getIdSubcategory());
+            namedParameterJdbcTemplate.update("UPDATE subcategory SET name_subcategory=:nameSubcategory WHERE id_subcategory=:idSubcategory", map);
         }
         return subcategory;
     }

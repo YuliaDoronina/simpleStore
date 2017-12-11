@@ -65,8 +65,8 @@ public class ProducerRepository implements IProducerRepository {
         List<Producer> producers = new ArrayList<>();
         for (Map row : rows) {
             Producer product = new Producer();
-            product.setId((Integer) row.get("id_producer"));
-            product.setName((String) row.get("name_producer"));
+            product.setIdProducer((Integer) row.get("id_producer"));
+            product.setNameProducer((String) row.get("name_producer"));
             producers.add(product);
         }
 
@@ -88,14 +88,14 @@ public class ProducerRepository implements IProducerRepository {
     public Producer save(Producer producer) {
         LOGGER.info("Save product: {}", producer);
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("name", producer.getName());
+        map.addValue("nameProducer", producer.getNameProducer());
 
-        if (producer.getId() == null) {
+        if (producer.getIdProducer() == null) {
             Number number = insert.executeAndReturnKey(map);
-            producer.setId(number.intValue());
+            producer.setIdProducer(number.intValue());
         } else {
-            map.addValue("id", producer.getId());
-            namedParameterJdbcTemplate.update("UPDATE producer SET name_producer=:name WHERE id_producer=:id", map);
+            map.addValue("idProducer", producer.getIdProducer());
+            namedParameterJdbcTemplate.update("UPDATE producer SET name_producer=:nameProducer WHERE id_producer=:idProducer", map);
         }
         return producer;
     }

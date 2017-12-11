@@ -3,100 +3,124 @@ package org.store.webapp.model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Product extends BaseEntity {
+public class Product {
 
-    private String price;
-    private String description;
-    private Boolean flag;
-    private Subcategory subcategory;
-    private Set<Producer> producers = new HashSet<>();
+    private Integer idProduct;
+    private String nameProduct;
+    private String priceProduct;
+    private String descriptionProduct;
+    private Boolean flagProduct;
+    private Subcategory valueSubcategory;
+    private Set<Producer> producerSet = new HashSet<>();
 
     public Product() {
     }
 
-    public Product(Integer id, String name, String price, String description, Boolean flag) {
-        super(id, name);
-        this.price = price;
-        this.description = description;
-        this.flag = flag;
+    public Product(Integer idProduct, String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
+        this.priceProduct = priceProduct;
+        this.descriptionProduct = descriptionProduct;
+        this.flagProduct = flagProduct;
     }
 
-    public Product(String name, String price, String description, Boolean flag) {
-        super(name);
-        this.price = price;
-        this.description = description;
-        this.flag = flag;
+    public Product(String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct) {
+        this.nameProduct = nameProduct;
+        this.priceProduct = priceProduct;
+        this.descriptionProduct = descriptionProduct;
+        this.flagProduct = flagProduct;
     }
 
-    public String getPrice() {
-        return price;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public String getDescription() {
-        return description;
+    public String getNameProduct() {
+        return nameProduct;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setNameProduct(String nameProduct) {
+        this.nameProduct = nameProduct;
     }
 
-    public Boolean getFlag() {
-        return flag;
+    public String getPriceProduct() {
+        return priceProduct;
     }
 
-    public void setFlag(Boolean flag) {
-        this.flag = flag;
+    public void setPriceProduct(String priceProduct) {
+        this.priceProduct = priceProduct;
     }
 
-    public Subcategory getSubcategory() {
-        return subcategory;
+    public String getDescriptionProduct() {
+        return descriptionProduct;
     }
 
-    public void setSubcategory(Subcategory subcategory) {
-        this.subcategory = subcategory;
+    public void setDescriptionProduct(String descriptionProduct) {
+        this.descriptionProduct = descriptionProduct;
     }
 
-    public Set<Producer> getProducers() {
-        return producers;
+    public Boolean getFlagProduct() {
+        return flagProduct;
     }
 
-    public void setProducers(Set<Producer> producers) {
-        this.producers = producers;
+    public void setFlagProduct(Boolean flagProduct) {
+        this.flagProduct = flagProduct;
+    }
+
+    public Subcategory getValueSubcategory() {
+        return valueSubcategory;
+    }
+
+    public void setValueSubcategory(Subcategory valueSubcategory) {
+        this.valueSubcategory = valueSubcategory;
+    }
+
+    public Set<Producer> getProducerSet() {
+        return producerSet;
+    }
+
+    public void setProducerSet(Set<Producer> producerSet) {
+        this.producerSet = producerSet;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
 
         Product product = (Product) o;
 
-        if (price != null ? !price.equals(product.price) : product.price != null) return false;
-        if (description != null ? !description.equals(product.description) : product.description != null) return false;
-        return flag != null ? flag.equals(product.flag) : product.flag == null;
+        if (idProduct != null ? !idProduct.equals(product.idProduct) : product.idProduct != null) return false;
+        if (nameProduct != null ? !nameProduct.equals(product.nameProduct) : product.nameProduct != null) return false;
+        if (priceProduct != null ? !priceProduct.equals(product.priceProduct) : product.priceProduct != null)
+            return false;
+        if (descriptionProduct != null ? !descriptionProduct.equals(product.descriptionProduct) : product.descriptionProduct != null)
+            return false;
+        return flagProduct != null ? flagProduct.equals(product.flagProduct) : product.flagProduct == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (flag != null ? flag.hashCode() : 0);
+        int result = idProduct != null ? idProduct.hashCode() : 0;
+        result = 31 * result + (nameProduct != null ? nameProduct.hashCode() : 0);
+        result = 31 * result + (priceProduct != null ? priceProduct.hashCode() : 0);
+        result = 31 * result + (descriptionProduct != null ? descriptionProduct.hashCode() : 0);
+        result = 31 * result + (flagProduct != null ? flagProduct.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                super.toString() +
-                "price='" + price + '\'' +
-                ", description='" + description + '\'' +
-                ", flag=" + flag +
+                "idProduct=" + idProduct +
+                ", nameProduct='" + nameProduct + '\'' +
+                ", priceProduct='" + priceProduct + '\'' +
+                ", descriptionProduct='" + descriptionProduct + '\'' +
+                ", flagProduct=" + flagProduct +
                 '}';
     }
 }

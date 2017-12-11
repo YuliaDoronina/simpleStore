@@ -36,7 +36,7 @@ public class ProductRepository implements IProductRepository {
     public ProductRepository(DataSource dataSource) {
         this.insert = new SimpleJdbcInsert(dataSource)
                 .withTableName("product")
-                .usingColumns("id_product");
+                .usingGeneratedKeyColumns("id_product");
     }
 
     @Override
@@ -73,11 +73,11 @@ public class ProductRepository implements IProductRepository {
         List<Product> products = new ArrayList<>();
         for (Map row : rows) {
             Product product = new Product();
-            product.setId((Integer) row.get("id_product"));
-            product.setName((String) row.get("name_product"));
-            product.setPrice((String) row.get("price_product"));
-            product.setDescription((String) row.get("description_product"));
-            product.setFlag((Boolean) row.get("flag_product"));
+            product.setIdProduct((Integer) row.get("id_product"));
+            product.setNameProduct((String) row.get("name_product"));
+            product.setPriceProduct((String) row.get("price_product"));
+            product.setDescriptionProduct((String) row.get("description_product"));
+            product.setFlagProduct((Boolean) row.get("flag_product"));
             products.add(product);
         }
         LOGGER.info("Get all products: {}", products);
@@ -99,17 +99,17 @@ public class ProductRepository implements IProductRepository {
     public Product save(Product product) {
         LOGGER.info("Save product: {}", product);
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("name", product.getName());
-        map.addValue("price", product.getPrice());
-        map.addValue("description", product.getDescription());
-        map.addValue("flag", product.getFlag());
+        map.addValue("nameProduct", product.getNameProduct());
+        map.addValue("priceProduct", product.getPriceProduct());
+        map.addValue("descriptionProduct", product.getDescriptionProduct());
+        map.addValue("flagProduct", product.getFlagProduct());
 
-        if (product.getId() == null) {
+        if (product.getIdProduct() == null) {
             Number number = insert.executeAndReturnKey(map);
-            product.setId(number.intValue());
+            product.setIdProduct(number.intValue());
         } else {
-            map.addValue("id", product.getId());
-            namedParameterJdbcTemplate.update("UPDATE product SET name_product=:name, price_product=:price, description_product=:description, flag_product=:flag WHERE id_product=:id", map);
+            map.addValue("idProduct", product.getIdProduct());
+            namedParameterJdbcTemplate.update("UPDATE product SET name_product=:nameProduct, price_product=:priceProduct, description_product=:descriptionProduct, flag_product=:flagProduct WHERE id_product=:idProduct", map);
         }
         return product;
     }

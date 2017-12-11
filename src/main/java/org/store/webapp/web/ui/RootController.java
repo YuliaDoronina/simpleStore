@@ -61,5 +61,4 @@ public class RootController {
     List<Producer> getAllByCategory(@RequestParam(value = "categoryId") Integer categoryId) {
         return producerService.getAllByCategory(categoryId);
     }
-
 }

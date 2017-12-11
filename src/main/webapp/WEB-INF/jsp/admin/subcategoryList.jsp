@@ -5,7 +5,7 @@
     <link href="<c:url value="/static/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/static/css/app.css" />" rel="stylesheet">
 
-    <title>Category</title>
+    <title>Subcategory</title>
 </head>
 <body>
 <div class="generic-container">
@@ -21,16 +21,16 @@
         <c:forEach items="${subcategoryList}" var="subcategory">
             <tr>
                 <jsp:useBean id="subcategory" class="org.store.webapp.model.Subcategory"/>
-                <td>${subcategory.id}</td>
-                <td>${subcategory.name}</td>
-                <td><a href="<c:url value='admin/subcategories/update?id=${subcategory.id}' />"
+                <td>${subcategory.idSubcategory}</td>
+                <td>${subcategory.nameSubcategory}</td>
+                <td><a href="<c:url value='/admin/subcategories/update?id=${subcategory.idSubcategory}' />"
                        class="btn btn-info custom-width">UPDATE</a></td>
-                <td><a href="<c:url value='admin/subcategories/delete?id=${subcategory.id}' />"
+                <td><a href="<c:url value='/admin/subcategories/delete?id=${subcategory.idSubcategory}' />"
                        class="btn btn-danger custom-width">DELETE</a></td>
             </tr>
         </c:forEach>
         <tr>
-            <td colspan="4"><a href="admin/subcategories/create">CREATE NEW ONE</a></td>
+            <td colspan="4"><a href="/admin/subcategories/create">CREATE NEW ONE</a></td>
         </tr>
         </tbody>
     </table>

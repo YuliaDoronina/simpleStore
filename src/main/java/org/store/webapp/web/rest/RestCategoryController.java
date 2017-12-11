@@ -2,33 +2,33 @@ package org.store.webapp.web.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.store.webapp.model.Product;
-import org.store.webapp.service.IProductService;
+import org.store.webapp.model.Category;
+import org.store.webapp.service.ICategoryService;
 
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/rest/products")
-public class RestProductController {
+@RequestMapping(value = "/rest/categories")
+public class RestCategoryController {
 
     @Autowired
-    private IProductService service;
+    private ICategoryService service;
 
     @RequestMapping(method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public List<Product> getAll() {
+    public List<Category> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
-    public Product getById(@PathVariable(value = "id") Integer id) {
+    public Category getById(@PathVariable(value = "id") Integer id) {
         return service.getById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public Product create(@Valid @RequestBody Product category) {
+    public Category create(@Valid @RequestBody Category category) {
         return service.save(category);
     }
 
@@ -38,8 +38,8 @@ public class RestProductController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = APPLICATION_JSON_VALUE)
-    public void update(@PathVariable Integer id, @RequestBody Product category) {
-        category.setIdProduct(id);
+    public void update(@PathVariable Integer id, @RequestBody Category category) {
+        category.setIdCategory(id);
         service.save(category);
     }
 }

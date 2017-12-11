@@ -5,7 +5,7 @@
     <link href="<c:url value="/static/css/bootstrap.css" />" rel="stylesheet">
     <link href="<c:url value="/static/css/app.css" />" rel="stylesheet">
 
-    <title>Producer</title>
+    <title>Product</title>
 </head>
 <body>
 <div class="generic-container">
@@ -24,19 +24,19 @@
         <c:forEach items="${productList}" var="product">
             <tr>
                 <jsp:useBean id="product" class="org.store.webapp.model.Product"/>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.price}</td>
-                <td>${product.description}</td>
-                <td>${product.flag}</td>
-                <td><a href="<c:url value='admin/products/update?id=${product.id}' />"
+                <td>${product.idProduct}</td>
+                <td>${product.nameProduct}</td>
+                <td>${product.priceProduct}</td>
+                <td>${product.descriptionProduct}</td>
+                <td>${product.flagProduct}</td>
+                <td><a href="<c:url value='/admin/products/update?id=${product.idProduct}' />"
                        class="btn btn-info custom-width">UPDATE</a></td>
-                <td><a href="<c:url value='admin/products/delete?id=${product.id}' />"
+                <td><a href="<c:url value='/admin/products/delete?id=${product.idProduct}' />"
                        class="btn btn-danger custom-width">DELETE</a></td>
             </tr>
         </c:forEach>
         <tr>
-            <td colspan="7"><a href="admin/products/create">CREATE NEW ONE</a></td>
+            <td colspan="7"><a href="/admin/products/create">CREATE NEW ONE</a></td>
         </tr>
         </tbody>
     </table>

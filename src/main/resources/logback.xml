@@ -16,7 +16,6 @@
     </appender>
 
     <logger name="org.store.webapp" level="debug"/>
-    <logger name="org.hibernate.SQL" level="debug"/>
     <logger name="org.springframework.web" level="DEBUG"/>
 
     <root level="info">

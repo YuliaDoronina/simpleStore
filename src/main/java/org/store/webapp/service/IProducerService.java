@@ -8,7 +8,7 @@ public interface IProducerService {
 
     List<Producer> getAll();
 
-    List getAllByCategory(Integer id);
+    List<Producer> getAllByCategory(Integer id);
 
     Producer getById(Integer id);
 

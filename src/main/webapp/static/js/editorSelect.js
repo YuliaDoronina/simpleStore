@@ -6,7 +6,7 @@ function getSubcategory() {
             var options = '';
             options += '<option value="">-----Select-----</option>';
             for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                options += '<option value="' + data[i].idSubcategory + '">' + data[i].nameSubcategory + '</option>';
             }
             $('#subcategory').html(options);
             //getProduct();
@@ -22,7 +22,7 @@ function getProducer() {
             var options = '';
             options += '<option value="">-----Select-----</option>';
             for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                options += '<option value="' + data[i].idProducer + '">' + data[i].nameProducer + '</option>';
             }
             $('#producer').html(options);
             //getProduct();
@@ -37,7 +37,7 @@ function getProductBySubcategory() {
         function (data) {
             var options = '';
             for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
+                options += '<option value="' + data[i].idProduct + '">' + "NAME:" + data[i].nameProduct + " PRICE:" + data[i].priceProduct + " DESCRIPTION:" + data[i].descriptionProduct + " FLAG:" + data[i].flagProduct + '</option>';
             }
             $('#product').html(options);
         }
@@ -51,7 +51,7 @@ function getProductByProducer() {
         function (data) {
             var options = '';
             for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
+                options += '<option value="' + data[i].idProduct + '">' + "NAME:" + data[i].nameProduct + " PRICE:" + data[i].priceProduct + " DESCRIPTION:" + data[i].descriptionProduct + " FLAG:" + data[i].flagProduct + '</option>';
             }
             $('#product').html(options);
         }
@@ -127,7 +127,7 @@ function sortJson(prop, asc, url) {
 
             var options = '';
             for (var i = 0; i < data.length; i++) {
-                options += '<option value="' + data[i].id + '">' + "NAME:" + data[i].name + " PRICE:" + data[i].price + " DESCRIPTION:" + data[i].description + " FLAG:" + data[i].flag + '</option>';
+                options += '<option value="' + data[i].idProduct + '">' + "NAME:" + data[i].nameProduct + " PRICE:" + data[i].priceProduct + " DESCRIPTION:" + data[i].descriptionProduct + " FLAG:" + data[i].flagProduct + '</option>';
             }
             $('#product').html(options);
         }

@@ -21,8 +21,8 @@
                     <select class="vd-select" id="category">
                         <jsp:useBean id="category" class="org.store.webapp.model.Category"/>
                         <c:forEach items="${categories}" var="categories">
-                            <option value="${categories.id}">
-                                    ${categories.name}
+                            <option value="${categories.idCategory}">
+                                    ${categories.typeCategory}
                             </option>
                         </c:forEach>
                     </select>
