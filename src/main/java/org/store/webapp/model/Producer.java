@@ -12,6 +12,15 @@ public class Producer {
     public Producer() {
     }
 
+    public Producer(Integer idProducer, String nameProducer) {
+        this.idProducer = idProducer;
+        this.nameProducer = nameProducer;
+    }
+
+    public Producer(String nameProducer) {
+        this.nameProducer = nameProducer;
+    }
+
     public Integer getIdProducer() {
         return idProducer;
     }

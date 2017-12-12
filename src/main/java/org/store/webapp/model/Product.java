@@ -33,6 +33,14 @@ public class Product {
         this.valueSubcategory = valueSubcategory;
     }
 
+    public Product(Integer idProduct, String nameProduct, String priceProduct, String descriptionProduct, Boolean flagProduct) {
+        this.idProduct = idProduct;
+        this.nameProduct = nameProduct;
+        this.priceProduct = priceProduct;
+        this.descriptionProduct = descriptionProduct;
+        this.flagProduct = flagProduct;
+    }
+
     public Integer getIdProduct() {
         return idProduct;
     }

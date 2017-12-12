@@ -24,6 +24,11 @@ public class Subcategory {
         this.valueCategory = valueCategory;
     }
 
+    public Subcategory(Integer idSubcategory, String nameSubcategory) {
+        this.idSubcategory = idSubcategory;
+        this.nameSubcategory = nameSubcategory;
+    }
+
     public Integer getIdSubcategory() {
         return idSubcategory;
     }

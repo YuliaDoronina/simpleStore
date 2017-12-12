@@ -49,15 +49,9 @@ CREATE TABLE summary (
     ON UPDATE CASCADE
 );
 
-/*THESE VALUES ARE USED TO TEST*/
-/*INSERT INTO product (name_product, price_product, description_product, flag_product, id_subcategory)
-VALUES ('tablet1', '123', 'description tablet1', TRUE, 1), ('tablet2', '898', 'description tablet2', FALSE, 1),
-  ('Monitors1', '254', 'description Monitors1', TRUE, 1);*/
-
 SELECT
   producer.id_producer,
-  producer.name_producer,
-  product.name_product
+  producer.name_producer
 FROM producer
   INNER JOIN summary ON producer.id_producer = summary.id_producer
   JOIN product ON summary.id_product = product.id_product
