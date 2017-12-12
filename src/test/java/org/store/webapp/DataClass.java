@@ -22,10 +22,10 @@ public class DataClass {
     /*For product:*/
     public final static Product PRODUCT1 = new Product(1, "testProduct1", "111", "testProduct1", true);
     public final static Product PRODUCT2 = new Product(2, "testProduct2", "222", "testProduct2", false);
-    public final static Product PRODUCT3 = new Product(3, "/", "/", "/", false);
+    public final static Product PRODUCT3 = new Product(0, "/", "/", "/", false, 1);
 
     /*For subcategory:*/
     public final static Subcategory SUBCATEGORY1 = new Subcategory(1, "testSubcategory1");
     public final static Subcategory SUBCATEGORY2 = new Subcategory(2, "testSubcategory2");
-    public final static Subcategory SUBCATEGORY3 = new Subcategory(3, "/");
+    public final static Subcategory SUBCATEGORY3 = new Subcategory(0, "/", 1);
 }

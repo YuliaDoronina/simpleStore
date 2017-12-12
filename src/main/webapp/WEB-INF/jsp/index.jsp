@@ -55,10 +55,11 @@
                         <option value="">-----Select-----</option>
                     </select>
                 </div>
+                <%--TODO: sor product for producer--%>
                 <div class="vd-modal-bottom">
-                    <button class="vd-button-small vd-color-primary" id="btnSortByPriceProduct1">Sort By Price
+                    <button class="vd-button-small vd-color-primary" id="test1">Sort By Price
                     </button>
-                    <button class="vd-button-small vd-color-primary" id="btnSortByFlagProduct1">Sort By Flag
+                    <button class="vd-button-small vd-color-primary" id="test2">Sort By Flag
                     </button>
                 </div>
             </div>
@@ -75,6 +76,7 @@
     </div>
 </div>
 
+<%--TODO: create new login page for admin--%>
 <div class="vend-iframe2">
     <div class="vd-modal-container">
         <div class="vd-modal-top">

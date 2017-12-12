@@ -82,7 +82,7 @@ $(document).ready(function () {
     });
 
     $('#btnSortByPriceProduct').click(function () {
-        sortJson('price', true, "/listProductByCategory");
+        sortJson('price', true);
     });
 
     $('#btnSortByFlagProduct').click(function () {
@@ -103,9 +103,9 @@ function sortByCategory() {
 }
 
 /*2. SORTING PRODUCTS*/
-function sortJson(prop, asc, url) {
+function sortJson(prop, asc) {
     $.getJSON(
-        url,
+        "/listProductByCategory",
         {idSubcategory: $('#subcategory').val()},
         function (data) {
             data = data.sort(function (a, b) {
