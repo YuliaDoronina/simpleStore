@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/rest/categories")
-public class RestCategoryController {
+public class RestCategoryController extends RestHandle {
 
     @Autowired
     private ICategoryService service;

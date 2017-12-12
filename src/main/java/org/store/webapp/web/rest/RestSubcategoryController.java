@@ -12,7 +12,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/rest/subcategories")
-public class RestSubcategoryController {
+public class RestSubcategoryController extends RestHandle {
 
     @Autowired
     private ISubcategoryService service;

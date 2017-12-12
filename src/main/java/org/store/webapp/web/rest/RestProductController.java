@@ -12,7 +12,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/rest/products")
-public class RestProductController {
+public class RestProductController extends RestHandle {
 
     @Autowired
     private IProductService service;
